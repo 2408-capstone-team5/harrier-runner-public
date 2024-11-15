@@ -27,9 +27,4 @@ inputs:
 
 runs:
   using: "node20"
-  pre: |
-    echo "Switching to action directory"
-    cd $GITHUB_ACTION_PATH
-    echo "Installing dependencies"
-    npm install
   main: "dist/index.js"
