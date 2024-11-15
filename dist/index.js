@@ -16,9 +16,15 @@ const setupEC2Runner_1 = require("./services/setupEC2Runner");
 const setupApiAndWebhook_1 = require("./services/setupApiAndWebhook");
 const setupRoles_1 = require("./services/setupRoles");
 const setupCacheEviction_1 = require("./services/setupCacheEviction");
+const deleteHarrier = false;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, cleanupPrevInstall_1.cleanupPrevInstall)();
+        if (deleteHarrier) {
+            console.log("=> Only performing cleanup of previous installation, without installing a new Harrier setup.\n" +
+                "✅ Successfully deleted Harrier from AWS account.\n");
+            return;
+        }
         yield (0, setupRoles_1.setupRoles)(); // IAM
         yield (0, setupVPC_1.setupVPC)();
         yield (0, setupS3CacheBucket_1.setupS3CacheBucket)(); // S3

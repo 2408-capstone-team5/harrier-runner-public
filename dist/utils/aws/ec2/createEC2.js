@@ -36,7 +36,7 @@ const createEC2 = () => __awaiter(void 0, void 0, void 0, function* () {
     ];
     // const userDataScript = startScript;
     const userDataScript = (0, setup_1.getStartScript)();
-    console.log(userDataScript);
+    // console.log(userDataScript);
     // Encode the script in base64 as required by AWS
     const userData = Buffer.from(userDataScript).toString("base64");
     const params = {
@@ -58,7 +58,7 @@ const createEC2 = () => __awaiter(void 0, void 0, void 0, function* () {
         if (instanceData.Instances && instanceData.Instances[0].InstanceId) {
             instanceId = instanceData.Instances[0].InstanceId;
         }
-        console.log(`*** Created instance with ID: ${instanceId} ***`);
+        console.log(`✅ Successfully created instance with ID: ${instanceId}\n`);
         return instanceId;
     }
     catch (error) {
