@@ -1,0 +1,42 @@
+name: Set Harrier on AWS infrastructure and GitHub webhooks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-harrier-runner:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Configure AWS Credentials for Harrier setup
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience: sts.amazonaws.com
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::536697269866:role/harrier-setup-role
+          
+      - name: Harrier Self-Hosted Runner Setup
+        uses: 2408-capstone-team5/harrier-self-hosted-runner@main
+        with:
+          region: us-east-1
+          ghOwnerName: ${{ github.repository_owner }}
+          awsAccountId: 536697269866
+          instanceType: t2.micro
+          cacheTtlHours: 72
+          cidrBlockVPC: 10.0.0.0/16
+          cidrBlockSubnet: 10.0.0.0/24
