@@ -25,7 +25,7 @@ jobs:
         with:
           audience: sts.amazonaws.com
           aws-region: us-east-1
-          role-to-assume: arn:aws:iam::536697269866:role/harrier-setup-role
+          role-to-assume: arn:aws:iam::536697269866:role/setup-harrier
 
       - name: Harrier Self-Hosted Runner Setup
         uses: 2408-capstone-team5/harrier-runner-public@main
